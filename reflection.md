@@ -25,31 +25,36 @@ Document at least 3 bugs you found. Add rows as needed.
 ---
 
 ## 2. How did you use AI as a teammate?
+I used Claude (claude.ai) as my AI coding assistant throughout this project.
 
-- Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
-- Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
-- Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+**Correct AI Suggestion:**
+Claude correctly identified that the hints were backwards in the check_guess function. It suggested swapping "Go HIGHER" and "Go LOWER" messages so that when a guess is too high it tells the player to go lower and vice versa. I verified this by running the game and testing with a known secret number from the debug panel.
+
+**Incorrect/Misleading AI Suggestion:**
+Claude initially suggested using the echo command to create conftest.py which created a file with null bytes causing a SyntaxError. I caught this because pytest gave an error saying "source code string cannot contain null bytes." I had to reject that approach and use a Python command instead to create the file correctly.
+
 
 ---
 
 ## 3. Debugging and testing your fixes
 
-- How did you decide whether a bug was really fixed?
-- Describe at least one test you ran (manual or using pytest)  
-  and what it showed you about your code.
-- Did AI help you design or understand any tests? How?
+I decided a bug was really fixed when two things happened — first the game behaved correctly when I played it manually, and second when all 5 pytest tests passed with no errors.
+I ran pytest after writing 5 automated tests in test_game_logic.py. The tests checked that check_guess returns "Too High" when guess is bigger than secret, "Too Low" when guess is smaller, and "Win" when they match. All 5 tests showed green dots meaning they passed.
+Claude helped me understand that check_guess returns two values (outcome and message) not just one. When I first wrote the tests they were failing because I was only checking one return value. Claude explained I needed to write outcome, message = check_guess() to capture both values.
 
 ---
 
 ## 4. What did you learn about Streamlit and state?
 
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+- Streamlit reruns means every time a user clicks a button or types something, the entire Python script runs again from top to bottom.This is different from normal programs that just wait for input.
+Session state is like a notebook that Streamlit keeps between these reruns. Without it, every time the page reruns it would forget the secret number, the score, and the guess history. Think of it like a waiter writing your order down so they remember it even if they walk away and come back.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+One habit I want to reuse is running pytest after every fix to verify my changes actually work instead of just assuming they do. Writing tests first makes debugging much faster and more reliable.
+
+Next time I work with AI on a coding task I would ask it to explain WHY it is making a suggestion, not just what to change. Sometimes Claude gave me code fixes without fully explaining the reason and I had to ask follow up questions to understand.
+
+This project changed how I think about AI generated code because I used to assume AI code would just work correctly. Now I know AI can introduce subtle bugs like flipped comparison operators or wrong difficulty ranges that look correct at first glance but break the game completely.
