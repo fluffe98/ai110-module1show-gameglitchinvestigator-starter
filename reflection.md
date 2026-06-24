@@ -4,9 +4,8 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 ## 1. What was broken when you started?
 
-- What did the game look like the first time you ran it?
-- List at least two concrete bugs you noticed at the start  
-  (for example: "the hints were backwards").
+- the Hard difficulty was much easier than the medium difficulty, range of hard was 1-50 vs the range for medium was 1-100.
+- in the same space teh max amount of tries are also different for each, easy has 8 attempts, medium has 8 tries and hard has 5 tries. 
 
 **Bug Reproduction Log**
 
@@ -14,9 +13,14 @@ Document at least 3 bugs you found. Add rows as needed.
 
 | Input | Expected Behavior | Actual Behavior | Console Output / Error |
 |-------|-------------------|-----------------|------------------------|
-| | | | |
-| | | | |
-| | | | |
+| Input | Expected Behavior | Actual Behavior | Console Output / Error |
+|-------|-------------------|-----------------|------------------------|
+| Guessed 50, secret was 23 | Should say "Go Lower" since 50 is bigger than 23 | Said "Go Higher" — completely wrong direction | none |
+| Typed 101 | Game should reject it, say "Enter between 1 and 100" | Game accepted 101 and kept playing normally | none |
+| Typed 99.5 and 99.9 | Game should only accept whole numbers | Accepted decimals, caused impossible guessing loop | none |
+| Opened Developer Debug Info dropdown | Should not reveal the secret number | Clearly showed "secret: 23" — player can see the answer | none |
+| Clicked Hard difficulty | Should have bigger range than Normal, like 1 to 500 | Hard = 1 to 50, Normal = 1 to 100, Hard is actually easier | none |
+| Kept guessing wrong answers | Score should stay positive | Score went into negative numbers | none |
 
 ---
 
